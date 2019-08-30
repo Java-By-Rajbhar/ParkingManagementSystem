@@ -1,5 +1,6 @@
 package com.parking.api.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,4 +11,5 @@ public interface ParkingRequestRepository extends JpaRepository<ParkingRequest, 
 
 	List<ParkingRequest> findByEmployeeId(int employeeId);
 
+	List<ParkingRequest> findByRequestForDate(LocalDate requestDate);
 }
