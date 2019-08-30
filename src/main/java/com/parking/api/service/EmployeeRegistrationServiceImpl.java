@@ -12,6 +12,7 @@ import com.parking.api.entity.EmployeeRegistration;
 import com.parking.api.entity.Parking;
 import com.parking.api.entity.Role;
 import com.parking.api.exception.EmailIdInvalidException;
+import com.parking.api.exception.UserAlreadyAvailable;
 import com.parking.api.repository.AssignationRepository;
 import com.parking.api.repository.EmployeeRegistrationRepository;
 import com.parking.api.repository.ParkingRepository;
@@ -40,43 +41,50 @@ public class EmployeeRegistrationServiceImpl implements EmployeeRegistrationServ
 
 		RegistrationResponseDto registrationResponseDto = new RegistrationResponseDto();
 		if (isValidEmailAddress(registrationRequestDto.getEmail())) {
-			
-			employeeRegistration.setEmail(registrationRequestDto.getEmail());
-			employeeRegistration.setEmployeeName(registrationRequestDto.getEmployeeName());
+			EmployeeRegistration empRegister = employeeRegistrationRepository
+					.findByEmail(registrationRequestDto.getEmail());
+			if (empRegister == null) {
 
-			employeeRegistration.setExperience(registrationRequestDto.getExperience());
-			employeeRegistration.setTotalExperience(registrationRequestDto.getTotalExperience());
-			employeeRegistration.setPassword(registrationRequestDto.getPassword());
+				employeeRegistration.setEmail(registrationRequestDto.getEmail());
+				employeeRegistration.setEmployeeName(registrationRequestDto.getEmployeeName());
 
-			if (registrationRequestDto.getExperience() >= 5 && registrationRequestDto.getTotalExperience() >= 15) {
-				Role vipRole = roleRepository.findByRoleName("VIP");
-				employeeRegistration.setRoleId(vipRole.getRoleId());
+				employeeRegistration.setExperience(registrationRequestDto.getExperience());
+				employeeRegistration.setTotalExperience(registrationRequestDto.getTotalExperience());
+				employeeRegistration.setPassword(registrationRequestDto.getPassword());
 
-			} else {
-				Role regularRole = roleRepository.findByRoleName("REGULAR");
-				employeeRegistration.setRoleId(regularRole.getRoleId());
-				registrationResponseDto.setMessage("Registration successful");
-			}
+				if (registrationRequestDto.getExperience() >= 5 && registrationRequestDto.getTotalExperience() >= 15) {
+					Role vipRole = roleRepository.findByRoleName("VIP");
+					employeeRegistration.setRoleId(vipRole.getRoleId());
 
-			EmployeeRegistration saveRegister = employeeRegistrationRepository.save(employeeRegistration);
-			if (saveRegister.getRoleId() == 1) {
-				assignation.setEmployeeId(saveRegister.getEmployeeId());
-				List<Parking> parkingAllot = parkingRepository.findByIsReserved("No");
-				for (Parking parking : parkingAllot) {
+				} else {
+					Role regularRole = roleRepository.findByRoleName("REGULAR");
+					employeeRegistration.setRoleId(regularRole.getRoleId());
+					registrationResponseDto.setMessage("Registration successful");
+				}
 
-					Parking parkingLotAvailable = parkingAllot.get(0);
-					parkingLotAvailable.setIsReserved("Yes");
-					parkingRepository.save(parkingLotAvailable);
-					assignation.setParkingId(parkingLotAvailable.getParkingId());
-					registrationResponseDto.setMessage("slot booked successfully");
-					assignationRepository.save(assignation);
+				EmployeeRegistration saveRegister = employeeRegistrationRepository.save(employeeRegistration);
+				if (saveRegister.getRoleId() == 1) {
+					assignation.setEmployeeId(saveRegister.getEmployeeId());
+					List<Parking> parkingAllot = parkingRepository.findByIsReserved("false");
+					for (Parking parking : parkingAllot) {
+
+						Parking parkingLotAvailable = parkingAllot.get(0);
+						parkingLotAvailable.setIsReserved("true");
+						parkingRepository.save(parkingLotAvailable);
+						assignation.setParkingId(parkingLotAvailable.getParkingId());
+						registrationResponseDto.setMessage("slot booked successfully");
+						assignationRepository.save(assignation);
+
+					}
 
 				}
 
+				registrationResponseDto.setStatusCode(201);
+				registrationResponseDto.setStatus("Success");
+			} else {
+				throw new UserAlreadyAvailable("User Already exist");
 			}
 
-			registrationResponseDto.setStatusCode(201);
-			registrationResponseDto.setStatus("Success");
 		} else {
 			throw new EmailIdInvalidException("email Id is invalid");
 		}

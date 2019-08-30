@@ -29,6 +29,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
 		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
 	}
 
+	@ExceptionHandler(UserAlreadyAvailable.class)
+	public ResponseEntity<ResponseError> emailIdInvalid(UserAlreadyAvailable ex)
+	{
+		ResponseError error =  new ResponseError(ex.getMessage(), HttpStatus.NOT_FOUND.value());
+		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+	}
+
 	
 
 }
