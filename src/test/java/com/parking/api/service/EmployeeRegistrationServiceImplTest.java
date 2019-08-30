@@ -13,8 +13,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import com.parking.api.dto.BookedSlotResponseDto;
 import com.parking.api.dto.RegistrationRequestDto;
 import com.parking.api.dto.RegistrationResponseDto;
+import com.parking.api.entity.Assignation;
 import com.parking.api.entity.EmployeeRegistration;
 import com.parking.api.entity.Parking;
 import com.parking.api.entity.Role;
@@ -87,4 +89,20 @@ public class EmployeeRegistrationServiceImplTest {
 		
 	}
 
+	
+	@Test
+	public void showBookedSlotTest()
+	{
+		Assignation assignation =new Assignation();
+		assignation.setAssignId(1);
+		assignation.setEmployeeId(1);
+		assignation.setParkingId(1);
+		
+		when(assignationRepository.findByEmployeeId(Mockito.anyInt())).thenReturn(assignation);
+		BookedSlotResponseDto bookedSlotResponseDto=registrationServiceImpl.showBookedSlot(1);
+		
+		assertEquals(0, bookedSlotResponseDto.getParkingId());
+	}
+	
+	
 }
