@@ -11,29 +11,21 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 /**
- * 
- * @author Shashank
+ * @author Laxman
  *
  */
 @Entity
 @Table
 @Setter
 @Getter
-@NoArgsConstructor
-public class Release {
-	
+@NoArgsConstructor	
+public class DailyParking {
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int releaseId;
-	private int employeeId;
-	private LocalDate fromDate;
-	private LocalDate toDate;
-
+	private Integer dailyParkingId;
+	private LocalDate dailyDate;
+	private Integer parkingId;
+	private Integer employeeId;
 }
-
- 
-
-
-
