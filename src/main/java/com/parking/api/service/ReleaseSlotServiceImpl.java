@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.parking.api.dto.ReleaseSlotRequestDto;
 import com.parking.api.dto.ReleaseSlotResponeDto;
-import com.parking.api.entity.Release;
+import com.parking.api.entity.ReleaseSlot;
 import com.parking.api.repository.ReleaseRepository;
 
 public class ReleaseSlotServiceImpl implements ReleaseSlotService {
@@ -17,7 +17,7 @@ public class ReleaseSlotServiceImpl implements ReleaseSlotService {
 
 		ReleaseSlotResponeDto releaseSlotResponeDto=new ReleaseSlotResponeDto();
 		
-		Release release =new Release();
+		ReleaseSlot release =new ReleaseSlot();
 		release.setEmployeeId(releaseSlotRequestDto.getEmployeeId());
 		release.setFromDate(releaseSlotRequestDto.getFromDate());
 		release.setToDate(releaseSlotRequestDto.getToDate());
