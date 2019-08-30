@@ -18,6 +18,7 @@ import com.parking.api.dto.RegistrationResponseDto;
 import com.parking.api.entity.EmployeeRegistration;
 import com.parking.api.entity.Parking;
 import com.parking.api.entity.Role;
+import com.parking.api.exception.UserAlreadyAvailable;
 import com.parking.api.repository.AssignationRepository;
 import com.parking.api.repository.EmployeeRegistrationRepository;
 import com.parking.api.repository.ParkingRepository;
@@ -43,7 +44,7 @@ public class EmployeeRegistrationServiceImplTest {
 	@InjectMocks
 	EmployeeRegistrationServiceImpl registrationServiceImpl;
 	
-	@Test
+	@Test(expected = UserAlreadyAvailable.class)
 	public void registrationTest()
 	{
 		EmployeeRegistration employeeRegistration = new EmployeeRegistration();
@@ -78,9 +79,7 @@ public class EmployeeRegistrationServiceImplTest {
 		
 		when(employeeRegistrationRepository.findByEmail(Mockito.anyString())).thenReturn(employeeRegistration);
 		
-		when(roleRepository.findByRoleName(Mockito.anyString())).thenReturn(role);
 		
-		when(parkingRepository.findByIsReserved(Mockito.anyString())).thenReturn(listParking);
 		
 		RegistrationResponseDto registrationResponseDto=registrationServiceImpl.registration(registrationRequestDto);
 		
