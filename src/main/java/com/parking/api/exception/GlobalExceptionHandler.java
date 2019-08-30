@@ -22,7 +22,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
 		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
 	}
 	
-	@ExceptionHandler(InvalidCredentialsException.class)
+	@ExceptionHandler(EmailIdInvalidException.class)
 	public ResponseEntity<ResponseError> emailIdInvalid(EmailIdInvalidException ex)
 	{
 		ResponseError error =  new ResponseError(ex.getMessage(), HttpStatus.NOT_FOUND.value());

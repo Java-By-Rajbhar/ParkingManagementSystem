@@ -16,8 +16,7 @@ public class RegistrationResponseDto {
 
 	private String message;
 	private int statusCode;
-	private String parkingLoction;
-	private String towerName;
+	private String status;
 	
 }
 
