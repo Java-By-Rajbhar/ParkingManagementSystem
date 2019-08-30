@@ -10,4 +10,6 @@ public interface ParkingRequestRepository extends JpaRepository<ParkingRequest, 
 
 	List<ParkingRequest> findByEmployeeId(int employeeId);
 
+	
+
 }

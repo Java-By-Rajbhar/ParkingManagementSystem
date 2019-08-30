@@ -36,6 +36,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
 		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
 	}
 
+	@ExceptionHandler(RepeatedReadException.class)
+	public ResponseEntity<ResponseError> repeatedReadExceptionHandler(RepeatedReadException ex)
+	{
+		ResponseError error =  new ResponseError(ex.getMessage(), HttpStatus.IM_USED.value());
+		return new ResponseEntity<>(error, HttpStatus.IM_USED);
+	}
 	
 
 }

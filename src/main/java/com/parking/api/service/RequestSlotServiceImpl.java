@@ -3,6 +3,8 @@ package com.parking.api.service;
 import java.util.List;
 
 import org.apache.commons.httpclient.HttpStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,16 +15,21 @@ import com.parking.api.dto.BookSlotRequestDto;
 import com.parking.api.dto.RequestSlotRequestDTO;
 import com.parking.api.dto.RequestSlotResponseDTO;
 import com.parking.api.entity.ParkingRequest;
+import com.parking.api.exception.RepeatedReadException;
 import com.parking.api.repository.ParkingRequestRepository;
 
 @Service
 
 public class RequestSlotServiceImpl implements RequestSlotService {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(RequestSlotServiceImpl.class);
+
 	@Autowired
 	ParkingRequestRepository parkingRequestRepository;
 
 	public RequestSlotResponseDTO requestSlot(RequestSlotRequestDTO requestSlotRequestDTO) {
+
+		LOGGER.info("inside RequestSlotServiceImpl");
 		RequestSlotResponseDTO requestSlotResponseDTO = new RequestSlotResponseDTO();
 
 		List<ParkingRequest> parkingList = parkingRequestRepository
@@ -50,7 +57,7 @@ public class RequestSlotServiceImpl implements RequestSlotService {
 
 	}
 
-	@Transactional(isolation = Isolation.READ_COMMITTED)
+	@Transactional(isolation = Isolation.REPEATABLE_READ)
 	public RequestSlotResponseDTO bookSlot(BookSlotRequestDto bookSlotRequestDto) {
 		RequestSlotResponseDTO bookSlot = new RequestSlotResponseDTO();
 
@@ -64,15 +71,15 @@ public class RequestSlotServiceImpl implements RequestSlotService {
 			BeanUtils.copyProperties(bookSlotRequestDto, parkingRequest);
 			parkingRequestRepository.save(parkingRequest);
 
-			bookSlot.setMessage("Request Sent Successfully");
+			bookSlot.setMessage("Booked the slot Successfully");
 			bookSlot.setStatusCode(HttpStatus.SC_CREATED);
 			bookSlot.setStatus("Success");
+
 		}
 
 		else {
-			bookSlot.setMessage("Already Requested for a Slot");
-			bookSlot.setStatusCode(HttpStatus.SC_CREATED);
-			bookSlot.setStatus("Failed");
+
+			throw new RepeatedReadException("Slot Already Booked");
 
 		}
 		return bookSlot;

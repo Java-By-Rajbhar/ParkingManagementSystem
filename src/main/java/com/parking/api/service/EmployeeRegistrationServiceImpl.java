@@ -22,7 +22,7 @@ import com.parking.api.repository.RoleRepository;
 
 @Service
 public class EmployeeRegistrationServiceImpl implements EmployeeRegistrationService {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeRegistrationServiceImpl.class);
 
 	@Autowired
@@ -37,17 +37,18 @@ public class EmployeeRegistrationServiceImpl implements EmployeeRegistrationServ
 	@Autowired
 	private ParkingRepository parkingRepository;
 
-	
 	/**
-	   * This method is used to register the employee for parking. This is
-	   * a the simplest form of a class method, just to
-	   * show that the business rule is performed i.e VIP employee get a parking slot
-	   * @param RegistrationRequestDto registrationRequestDto This is the  paramter to register for parking
-	   * @return RegistrationResponseDto This returns status of the parking slot
-	   */
+	 * This method is used to register the employee for parking. This is a the
+	 * simplest form of a class method, just to show that the business rule is
+	 * performed i.e VIP employee get a parking slot
+	 * 
+	 * @param RegistrationRequestDto registrationRequestDto This is the paramter to
+	 *                               register for parking
+	 * @return RegistrationResponseDto This returns status of the parking slot
+	 */
 	@Override
 	public RegistrationResponseDto registration(RegistrationRequestDto registrationRequestDto) {
-		
+
 		LOGGER.info("EmployeeRegistrationServiceImpl registration");
 
 		EmployeeRegistration employeeRegistration = new EmployeeRegistration();
@@ -106,12 +107,13 @@ public class EmployeeRegistrationServiceImpl implements EmployeeRegistrationServ
 		return registrationResponseDto;
 	}
 
-	
 	/**
-	   * This method is used to validate email pattern
-	   * @param String email .This parameter is the input 
-	   * @return boolean This returns true if valid email and return false if email is invalid
-	   */
+	 * This method is used to validate email pattern
+	 * 
+	 * @param String email .This parameter is the input
+	 * @return boolean This returns true if valid email and return false if email is
+	 *         invalid
+	 */
 	public boolean isValidEmailAddress(String email) {
 		String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
 		java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
