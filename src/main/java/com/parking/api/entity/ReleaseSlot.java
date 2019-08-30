@@ -21,8 +21,9 @@ import lombok.Setter;
 @Table
 @Setter
 @Getter
-@NoArgsConstructor
-public class Release {
+public class ReleaseSlot {
+
+
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
