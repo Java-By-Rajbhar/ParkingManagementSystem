@@ -15,11 +15,12 @@ import lombok.Setter;
  * @author Laxman
  *
  */
+
 @Entity
 @Table
 @Setter
 @Getter
-@NoArgsConstructor	
+@NoArgsConstructor
 public class DailyParking {
 
 	@Id
