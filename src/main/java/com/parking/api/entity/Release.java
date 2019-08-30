@@ -1,5 +1,7 @@
 package com.parking.api.entity;
 
+import java.time.LocalDate;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,7 +14,7 @@ import lombok.Setter;
 
 /**
  * 
- * @author Sushil
+ * @author Shashank
  *
  */
 @Entity
@@ -20,13 +22,18 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
-
-public class Parking {
-
+public class Release {
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int parkingId;
-	private String parkingLocation;
-	private String towerName;
-	private String isReserved;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int releaseId;
+	private int employeeId;
+	private LocalDate fromDate;
+	private LocalDate toDate;
+
 }
+
+ 
+
+
+

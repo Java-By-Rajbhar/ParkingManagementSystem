@@ -12,7 +12,7 @@ import lombok.Setter;
 
 /**
  * 
- * @author Sushil
+ * @author Shashank
  *
  */
 @Entity
@@ -21,12 +21,14 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 
-public class Parking {
+public class Assignation {
+	
+	
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int assignId;
+	private int employeeId;
 	private int parkingId;
-	private String parkingLocation;
-	private String towerName;
-	private String isReserved;
+
 }

@@ -1,14 +1,15 @@
 package com.parking.api.exception;
 
-public class EmailIdInvalidException extends RuntimeException{
+public class UserAlreadyAvailable extends RuntimeException{
 
 	/**
-	 * @Shashank
+	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public EmailIdInvalidException(String message)
+	public UserAlreadyAvailable(String message)
 	{
 		super(message);
 	}
+
 }

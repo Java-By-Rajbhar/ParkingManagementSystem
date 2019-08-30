@@ -12,11 +12,10 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
-public class RegistrationResponseDto {
-
+public class ReleaseSlotResponeDto {
+	
 	private String message;
 	private int statusCode;
 	private String status;
-	
-}
 
+}

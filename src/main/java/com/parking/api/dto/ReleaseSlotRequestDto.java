@@ -1,5 +1,7 @@
 package com.parking.api.dto;
 
+import java.time.LocalDate;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,11 +14,13 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
-public class RegistrationResponseDto {
+public class ReleaseSlotRequestDto {
 
-	private String message;
-	private int statusCode;
-	private String status;
+	private int employeeId;
+	private LocalDate fromDate;
+	private LocalDate toDate;
+	private int parkingslotId;
+	
 	
 }
 
