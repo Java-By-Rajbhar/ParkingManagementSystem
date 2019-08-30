@@ -41,6 +41,7 @@ public class LoginServiceTest {
 		
 		employee.setEmail("laxman@hcl.com");
 		employee.setEmployeeId(101);
+		employee.setPassword("hello");
 		
 		role.setRoleId(101);
 		role.setRoleName("VIP");
