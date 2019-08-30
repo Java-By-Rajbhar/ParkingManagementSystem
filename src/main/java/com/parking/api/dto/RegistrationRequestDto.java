@@ -14,7 +14,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class RegistrationRequestDto {
 	
-	private int roleId;
 	private String employeeName;
 	private int experience;
 	private int totalExperience;
@@ -22,3 +21,8 @@ public class RegistrationRequestDto {
 	private String password;
 
 }
+
+
+
+
+
