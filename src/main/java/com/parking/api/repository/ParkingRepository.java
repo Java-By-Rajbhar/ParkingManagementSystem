@@ -13,4 +13,6 @@ public interface ParkingRepository extends JpaRepository<Parking, Integer>{
 	
 	public List<Parking> findByIsReserved(String status);
 	
+	public Parking findByParkingId(int parkingId);
+	
 }
