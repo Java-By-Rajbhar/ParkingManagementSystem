@@ -16,7 +16,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
 	
 	@ExceptionHandler(InvalidCredentialsException.class)
-	public ResponseEntity<ResponseError> productNotFoundExceptionHandler(InvalidCredentialsException ex)
+	public ResponseEntity<ResponseError> InvalidCredentialsExceptionHandler(InvalidCredentialsException ex)
 	{
 		ResponseError error =  new ResponseError(ex.getMessage(), HttpStatus.NOT_FOUND.value());
 		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);

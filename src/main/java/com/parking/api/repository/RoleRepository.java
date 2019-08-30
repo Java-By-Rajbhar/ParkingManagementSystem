@@ -6,9 +6,14 @@ import org.springframework.stereotype.Repository;
 import com.parking.api.entity.Role;
 
 
+
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Integer>{
 	
+
+
 	public Role findByRoleName(String name);
+
+	public Role findByRoleId(Integer roleId);
 
 }

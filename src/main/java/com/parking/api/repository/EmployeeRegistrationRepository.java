@@ -11,7 +11,7 @@ import com.parking.api.entity.EmployeeRegistration;
  */
 @Repository
 public interface EmployeeRegistrationRepository extends JpaRepository<EmployeeRegistration, Integer> {
-
+	
 	public EmployeeRegistration findByEmail(String email);
 	
 }
