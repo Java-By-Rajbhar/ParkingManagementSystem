@@ -21,11 +21,12 @@ import lombok.Setter;
 @Table
 @Setter
 @Getter
-@NoArgsConstructor
 public class ReleaseSlot {
 
+
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int releaseId;
 	private int employeeId;
 	private LocalDate fromDate;
