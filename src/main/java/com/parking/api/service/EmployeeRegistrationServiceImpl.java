@@ -1,12 +1,14 @@
 package com.parking.api.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.parking.api.dto.BookedSlotResponseDto;
 import com.parking.api.dto.RegistrationRequestDto;
 import com.parking.api.dto.RegistrationResponseDto;
 import com.parking.api.entity.Assignation;
@@ -19,7 +21,11 @@ import com.parking.api.repository.AssignationRepository;
 import com.parking.api.repository.EmployeeRegistrationRepository;
 import com.parking.api.repository.ParkingRepository;
 import com.parking.api.repository.RoleRepository;
-
+/**
+ * 
+ * @author Sushil
+ *
+ */
 @Service
 public class EmployeeRegistrationServiceImpl implements EmployeeRegistrationService {
 
@@ -120,5 +126,26 @@ public class EmployeeRegistrationServiceImpl implements EmployeeRegistrationServ
 		java.util.regex.Matcher m = p.matcher(email);
 		return m.matches();
 
+	}
+
+
+	@Override
+	public BookedSlotResponseDto showBookedSlot(int id) {
+		
+		Assignation assignation=assignationRepository.findByEmployeeId(id);
+		BookedSlotResponseDto bookedSlotResponseDto=new BookedSlotResponseDto();
+		
+		Parking parking=new Parking();
+		Optional<Parking> optionalParking=parkingRepository.findById(assignation.getParkingId());
+		if(optionalParking.isPresent())
+		{
+			parking=optionalParking.get();
+			bookedSlotResponseDto.setParkingId(parking.getParkingId());
+			bookedSlotResponseDto.setParkingLocation(parking.getParkingLocation());
+		}
+		
+		
+		
+		return bookedSlotResponseDto;
 	}
 }
