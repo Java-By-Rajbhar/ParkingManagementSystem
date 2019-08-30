@@ -1,5 +1,7 @@
 package com.parking.api.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,12 +25,15 @@ import com.parking.api.service.EmployeeRegistrationService;
 @CrossOrigin(allowedHeaders = { "*", "/" }, origins = { "*", "/" })
 public class EmployeeRegistrationController {
 	
+	private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeRegistrationController.class);
+	
 	@Autowired
 	private EmployeeRegistrationService employeeRegistrationService;
 	
 	@PostMapping("/register")
 	public ResponseEntity<RegistrationResponseDto> register(@RequestBody RegistrationRequestDto registrationRequestDto)
 	{
+		LOGGER.info("EmployeeRegistrationController employeeRegistrationService");
 		
 		return new ResponseEntity<>(employeeRegistrationService.registration(registrationRequestDto),HttpStatus.CREATED);
 	}
