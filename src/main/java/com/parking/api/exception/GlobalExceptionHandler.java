@@ -21,6 +21,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
 		ResponseError error =  new ResponseError(ex.getMessage(), HttpStatus.NOT_FOUND.value());
 		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
 	}
+	
+	@ExceptionHandler(InvalidCredentialsException.class)
+	public ResponseEntity<ResponseError> emailIdInvalid(EmailIdInvalidException ex)
+	{
+		ResponseError error =  new ResponseError(ex.getMessage(), HttpStatus.NOT_FOUND.value());
+		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+	}
 
 	
 
